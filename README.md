@@ -77,7 +77,7 @@ The goal is to explore:
 ```sh
 cp .env.template .env
 
-## set SECRET_API_KEY value
+## set SECRET_API_KEY value in the .env file
 
 ./startup.sh
 ```
