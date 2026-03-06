@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2026 Jaydeep Sahu
+ * Practice / learning project
+ */
 package com.jaydeep.quizyai;
 
 import org.springframework.boot.SpringApplication;
