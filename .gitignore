@@ -6,6 +6,9 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+### sensitive file ###
+.env
+
 ### STS ###
 .apt_generated
 .classpath
