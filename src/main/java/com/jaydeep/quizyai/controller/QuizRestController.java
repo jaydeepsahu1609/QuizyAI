@@ -35,7 +35,7 @@ public class QuizRestController {
      * @param name the name of the user to greet
      * @return a ResponseEntity containing the AI-generated greeting string
      */
-    @GetMapping({"/", "hello"})
+    @GetMapping("/hello")
     public ResponseEntity<String> sayHello(@RequestParam(value = "name") String name) {
 
         try {
