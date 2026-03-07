@@ -7,9 +7,254 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>QuizyAI | Home</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Poppins:wght@400;500;600&display=swap"
+          rel="stylesheet">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="css/styles.css">
+
 </head>
+
 <body>
+
+<div class="app-container">
+
+    <!-- Home Page -->
+    <div id="home-page">
+
+        <div class="title">QuizyAI <i class="bi bi-lightbulb-fill"></i></div>
+
+        <div class="score">
+            High Score : <span id="highscore"></span>
+        </div>
+
+        <div class="quiz-box">
+
+            <div class="mb-4 row align-items-center">
+                <label class="col-4 form-label">Category</label>
+                <div class="col-8">
+                    <select class="form-select">
+                        <option selected disabled>SELECT</option>
+                        <option>Science</option>
+                        <option>History</option>
+                        <option>Sports</option>
+                        <option>Technology</option>
+                        <option>Cricket</option>
+                        <option>Bollywood</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-4 row align-items-center">
+                <label class="col-4 form-label">Difficulty</label>
+                <div class="col-8">
+                    <select class="form-select">
+                        <option selected>EASY</option>
+                        <option>MEDIUM</option>
+                        <option>HARD</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <button id="play-btn" class="btn play-btn px-5 py-2">
+                    Let's Play
+                </button>
+            </div>
+
+        </div>
+
+        <div class="footer">
+            Powered by LLMs via OpenRouter <br/>
+            Built with ❤️ in India
+        </div>
+
+    </div>
+
+    <!-- Quiz Page -->
+    <!-- Quiz Page -->
+    <div id="quiz-page" class="mt-4">
+
+        <!-- Quiz Title -->
+        <h1 class="title text-center quiz-title mb-4">Quiz #1</h1>
+
+        <!-- Category + Difficulty -->
+        <div class="d-flex justify-content-between quiz-meta px-3">
+            <div>
+                <span class="meta-label">Category</span>
+                <span class="meta-value">Cricket</span>
+            </div>
+
+            <div>
+                <span class="meta-label">Difficulty</span>
+                <span class="meta-value">Easy</span>
+            </div>
+        </div>
+
+        <hr class="my-3">
+
+        <!-- Question Info -->
+        <div class="d-flex justify-content-between align-items-center px-3 mb-3">
+
+            <div class="question-count">
+                <span class="meta-label">Question</span>
+                <span class="meta-value">1 / 5</span>
+            </div>
+
+            <div class="timer badge bg-danger fs-6">
+                00:30
+            </div>
+
+        </div>
+
+        <!-- Question Box -->
+        <div class="question-container p-4">
+
+            <!-- Question -->
+            <div class="question-box mb-4">
+                <p class="question-text mb-0">
+                    Which country won the Cricket World Cup in 2011?
+                </p>
+            </div>
+
+            <!-- Options -->
+            <div class="row g-3">
+
+                <div class="col-md-6">
+                    <button class="btn option-btn w-100">
+                        Australia
+                    </button>
+                </div>
+
+                <div class="col-md-6">
+                    <button class="btn option-btn w-100">
+                        India
+                    </button>
+                </div>
+
+                <div class="col-md-6">
+                    <button class="btn option-btn w-100">
+                        England
+                    </button>
+                </div>
+
+                <div class="col-md-6">
+                    <button class="btn option-btn w-100">
+                        South Africa
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Result Page -->
+    <div id="result-page" class="mt-4">
+
+        <!-- Title -->
+        <h1 class="title text-center quiz-title mb-5">Result</h1>
+
+        <!-- Category + Difficulty -->
+        <div class="d-flex justify-content-between quiz-meta px-3 mb-4">
+
+            <div>
+                <span class="meta-label">Category</span>
+                <span id="result-category" class="meta-value">Cricket</span>
+            </div>
+
+            <div>
+                <span class="meta-label">Difficulty</span>
+                <span id="result-difficulty" class="meta-value">Easy</span>
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <!-- Left: Question Results -->
+            <div class="col-md-6">
+
+                <div class="result-item correct">
+                    <span class="result-number">1</span>
+                    <span class="result-text">CORRECT ANSWER</span>
+                </div>
+
+                <div class="result-item correct">
+                    <span class="result-number">2</span>
+                    <span class="result-text">CORRECT ANSWER</span>
+                </div>
+
+                <div class="result-item wrong">
+                    <span class="result-number">3</span>
+                    <span class="result-text">WRONG ANSWER</span>
+                </div>
+
+                <div class="result-item correct">
+                    <span class="result-number">4</span>
+                    <span class="result-text">CORRECT ANSWER</span>
+                </div>
+
+                <div class="result-item correct">
+                    <span class="result-number">5</span>
+                    <span class="result-text">CORRECT ANSWER</span>
+                </div>
+
+            </div>
+
+            <!-- Right: Score -->
+            <div class="col-md-6 d-flex flex-column justify-content-center align-items-center">
+
+                <div class="score-display">
+
+                    <span id="score-value">4</span>
+
+                    <div class="score-line"></div>
+
+                    <span id="score-total">5</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Buttons -->
+        <div class="row mt-5">
+
+            <div class="col-md-6 text-center">
+                <button id="try-again-btn" class="btn result-btn">
+                    TRY AGAIN
+                </button>
+            </div>
+
+            <div class="col-md-6 text-center">
+                <button id="new-quiz-btn" class="btn result-btn">
+                    NEW QUIZ
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Loader -->
+    <div id="loader" style="display: none;"> </div>
+
+    <!-- Main JS -->
+    <script src="js/main.js"></script>
+
+</div>
 
 </body>
 </html>
