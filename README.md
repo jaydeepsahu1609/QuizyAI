@@ -177,3 +177,13 @@ To visualize how the AI-powered quiz would look for end users, I have designed a
 <img src="docs/homepage-ui.png" width="600" alt="QuizyAI HOME-PAGE">
 <img src="docs/quizpage-ui.png" width="600" alt="QuizyAI QUIZ-PAGE">
 <img src="docs/resultpage-ui.png" width="600" alt="QuizyAI RESULT-PAGE">
+
+#### Demo
+
+> **Note:** Since this project utilizes free LLM models via OpenRouter, AI response times may be slightly higher.
+
+[![QuizyAI Demo Video](docs/homepage-ui.png)](docs/QuizyAI-Demo-March7.mp4)
+
+*Click the image above to view the demo video.*
+
+---
