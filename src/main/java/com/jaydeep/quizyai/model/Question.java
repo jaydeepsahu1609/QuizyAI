@@ -15,5 +15,5 @@ public class Question {
     private int id;
     private String question;
     private List<Option> options;
-    private int answer;
+    private String answer;
 }

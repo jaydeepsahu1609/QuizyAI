@@ -83,15 +83,14 @@ public class QuizServiceImpl implements QuizService {
         Collections.shuffle(response.getQuestions());
 
         for (Question question : response.getQuestions()) {
-            Option correctOption = question.getOptions().get(question.getAnswer() - 1);
             Collections.shuffle(question.getOptions());
 
             for (int i = 0; i < question.getOptions().size(); i++) {
                 Option option = question.getOptions().get(i);
                 option.setKey(i + 1);
 
-                if (option.equals(correctOption)) {
-                    question.setAnswer(i + 1);
+                if (option.getValue().equals(question.getAnswer())) {
+                    question.setAnswer(String.valueOf(option.getKey()));
                 }
             }
         }

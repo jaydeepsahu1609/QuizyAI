@@ -32,46 +32,47 @@ public final class Prompts {
     public final static String QUIZ_PROMPT = """
             You are a quiz generator API.
             
-            Generate exactly 5 quiz questions about the category: %s.
-            Difficulty level: %s.
+             Generate exactly 5 quiz questions about the category: %s.
+             Difficulty level: %s.
             
-            Rules:
-            - Each question must be unique and test a different fact.
-            - Each question must be one short factual sentence.
-            - Provide exactly 4 options per question.
-            - Only one option must be correct.
-            - The "answer" field must contain the key of the correct option.
+             Rules:
+             - Each question must be unique and test a different fact.
+             - Each question must be one short factual sentence.
+             - Provide exactly 4 options per question.
+             - Only one option must be correct.
+             - The "answer" field must contain the VALUE of the correct option (not the key).
             
-            Validation rules (VERY IMPORTANT):
-            - The option marked as the correct answer MUST match the question.
-            - Verify the correctness before returning the response.
-            - Do NOT assign a random answer key.
-            - The correct answer key should vary across questions (not always 1).
+             Validation rules (VERY IMPORTANT):
+             - The answer value must exactly match one of the option values.
+             - Verify that the answer is factually correct before returning the response.
+             - Do NOT generate a random answer.
+             - Ensure the correct answer corresponds to the question.
             
-            Formatting rules:
-            - Question IDs must start from 1 and increment sequentially.
-            - Option keys must always be exactly: 1, 2, 3, 4.
+             Formatting rules:
+             - Question IDs must start from 1 and increment sequentially.
+             - Option keys must always be exactly: 1, 2, 3, 4.
+             - Option values must be short text.
             
-            IMPORTANT:
-            Return ONLY valid JSON.
-            Do NOT include explanations, markdown, comments, or extra text.
+             IMPORTANT:
+             Return ONLY valid JSON.
+             Do NOT include explanations, markdown, comments, or extra text.
             
-            JSON format:
+             JSON format:
             
-            {
-              "questions": [
-                {
-                  "id": 1,
-                  "question": "question text",
-                  "options": [
-                    { "key": 1, "value": "option text" },
-                    { "key": 2, "value": "option text" },
-                    { "key": 3, "value": "option text" },
-                    { "key": 4, "value": "option text" }
-                  ],
-                  "answer": 2
-                }
-              ]
-            }
+             {
+               "questions": [
+                 {
+                   "id": 1,
+                   "question": "question text",
+                   "options": [
+                     { "key": 1, "value": "option text" },
+                     { "key": 2, "value": "option text" },
+                     { "key": 3, "value": "option text" },
+                     { "key": 4, "value": "option text" }
+                   ],
+                   "answer": "option text"
+                 }
+               ]
+             }
             """;
 }
