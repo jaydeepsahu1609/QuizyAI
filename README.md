@@ -1,83 +1,214 @@
 # QuizyAI 🤖🧠
 
-> [Work In Progress]
+> 🚧 **Work In Progress**
 
-⚡ *QuizyAI explores a simple idea: what if quizzes didn't need a database at all?*
+**QuizyAI** explores a simple idea:
 
-QuizyAI is an AI-powered quiz application built with **Spring Boot** and **Spring AI**, where quiz questions are generated dynamically using a Large Language Model instead of being stored in a traditional database.
+> *What if a quiz application didn’t need a database at all?*
 
-In typical quiz applications, questions, options, answers, and difficulty levels are stored and fetched from a datastore. QuizyAI takes a different approach — it **generates quizzes on demand using AI**, eliminating the need to maintain a large question database.
+QuizyAI is an **AI-powered quiz backend** built with **Spring Boot** and **Spring AI** that generates quiz questions dynamically using **Large Language Models (LLMs)** instead of retrieving them from a traditional database.
 
-The application integrates with **OpenRouter free LLM models** to generate quiz questions for any topic or category in real time.
+Most quiz platforms rely on storing thousands of questions, options, and answers in a datastore. QuizyAI takes a different approach — it **generates quizzes on demand using AI**, eliminating the need to maintain a large question bank.
 
-This project is built primarily as a **learning project** to explore:
+The application integrates with **OpenRouter free LLM models** to generate quizzes for **any topic in real time**.
 
--   Integrating **AI into Java/Spring applications**
--   Using **Spring AI** for LLM interactions
--   Designing AI-assisted backend systems
--   Experimenting with prompt engineering and structured AI responses
+This project is primarily a **learning playground** to explore how **AI can be integrated into Java/Spring backend systems**.
 
 ---
 
-## Features
+# ✨ Core Idea
 
--   🤖 **AI-generated quizzes** for any topic or category
--   🎯 Configurable **difficulty levels**
--   👤 **User management** with quiz history
--   🏆 **High score tracking and leaderboards**
--   💾 **Save progress** and resume quizzes
--   🔌 AI backend powered by **OpenRouter free models**
--   ⚡ Built with **Spring Boot + Spring AI**
+Traditional quiz applications typically work like this:
 
-## How It Works
+```
+Database → Fetch Questions → Send Quiz
+```
 
-Instead of retrieving quiz questions from a database, the backend sends a structured prompt to an AI model via OpenRouter. The AI returns a formatted quiz containing:
+QuizyAI works differently:
 
--   Question
--   Multiple-choice options
--   Correct answer
--   Difficulty level
+```
+User Request → Prompt AI Model → Generate Quiz → Send Quiz
+```
 
-The Spring Boot application then validates, stores user results, and manages quiz sessions.
+No stored questions.
+No question management system.
+Just **AI generating quizzes dynamically**.
 
 ---
 
-## Tech Stack
+# 🚀 Features
 
--   Java
--   Spring Boot
--   Spring AI
--   OpenRouter (For Free AI Models)
--   JSON-based AI responses
-
----
-
-## Purpose of the Project
-
-This project is intentionally designed as an **experimental playground for learning AI integration in Java applications**.
-
-The goal is to explore:
-
--   How LLMs can replace traditional data sources in some scenarios
--   Best practices for AI prompting and response parsing
--   Building AI-assisted backend services using Spring
-
-## Future Improvements
-
--   AI response validation and retry mechanisms
--   Better prompt engineering for consistent quiz format
--   Rate limiting and caching of generated quizzes
--   Support for multiple AI providers
--   Web or mobile frontend
+- 🤖 **AI-Generated Quizzes** — Create quizzes for any topic or category in real time
+- 🎯 **Configurable Difficulty** — Supports difficulty levels like `easy`, `medium`, and `hard`
+- 🔀 **Automatic Shuffling** — Randomizes questions and options for a unique quiz each time
+- 👋 **AI-Powered Greetings** — Fun endpoint that generates personalized greetings
+- 🔌 **LLM Integration** — Uses free models via **OpenRouter**
+- 🔁 **Retry Mechanism** — Handles API rate limit failures gracefully
+- ⚡ **Modern Java Backend** — Built with **Spring Boot + Spring AI**
+- 🧾 **Structured AI Responses** — AI returns quiz data in JSON format
 
 ---
 
-## How to run the project
+# 🌐 API Endpoints
 
-```sh
+## Greeting
+
+**Endpoint**
+
+```
+GET /hello
+```
+
+Returns a personalized AI-generated welcome message.
+
+### Query Parameters
+
+| Parameter | Description | Example |
+|-----------|-------------|--------|
+| `name` | Name of the user | `John` |
+
+### Example Request
+
+```http
+GET http://localhost:8080/hello?name=John
+```
+
+---
+
+## Generate Quiz
+
+**Endpoint**
+
+```
+GET /quiz
+```
+
+Generates a **5-question quiz** for a given topic.
+
+### Query Parameters
+
+| Parameter | Description | Default | Example |
+|----------|-------------|--------|--------|
+| `category` | Quiz topic/category | - | `Science` |
+| `difficulty` | Difficulty level | `easy` | `medium` |
+
+### Example Request
+
+```http
+GET http://localhost:8080/quiz?category=Science&difficulty=medium
+```
+
+---
+
+# 🧠 How It Works
+
+1. `QuizRestController` receives the quiz request.
+2. `QuizServiceImpl` builds a **structured prompt** using templates from `Prompts.java`.
+3. The prompt is sent to an **LLM via Spring AI's ChatClient**.
+4. The AI returns a **structured JSON response**.
+5. Spring AI automatically maps the JSON to a `QuizResponse` Java object.
+6. The service then **shuffles questions and options** to ensure randomness.
+7. The final quiz is returned to the user.
+
+---
+
+# 🛠 Tech Stack
+
+| Technology | Purpose |
+|------------|--------|
+| **Java** | Core backend language |
+| **Spring Boot** | Backend framework |
+| **Spring AI** | LLM integration |
+| **OpenRouter** | Access to free LLM models |
+| **Maven** | Dependency management |
+| **JSON** | Structured AI responses |
+
+---
+
+# 🎯 Purpose of the Project
+
+QuizyAI is intentionally designed as an **experimental learning project**.
+
+The goals are to explore:
+
+- Integrating **LLMs with Java applications**
+- Using **Spring AI for AI-powered backends**
+- **Prompt engineering** for structured responses
+- Parsing and validating **AI-generated JSON**
+- Understanding how **AI can replace traditional data sources in some scenarios**
+
+---
+
+# ▶️ Running the Project
+
+## 1. Clone the repository
+
+```bash
+git clone https://github.com/jaydeepsahu1609/QuizyAI.git
+cd QuizyAI
+```
+
+---
+
+## 2. Create Environment File
+
+```bash
 cp .env.template .env
+```
 
-## set SECRET_API_KEY value in the .env file
+---
 
+## 3. Add OpenRouter API Key
+
+Edit the `.env` file:
+
+```
+SECRET_API_KEY="your_openrouter_api_key"
+```
+
+---
+
+## 4. Start the Application
+
+Run using the provided script:
+
+```bash
 ./startup.sh
 ```
+
+Or run directly from **IntelliJ IDEA**.
+
+Make sure your run configuration loads environment variables from the `.env` file.
+
+---
+
+# 🔮 Future Improvements
+
+- [ ] AI response validation and retry mechanisms
+- [ ] Better prompt engineering for consistent quiz format
+- [ ] Rate limiting and caching of generated quizzes
+- [ ] 👤 **User management** with quiz history
+- [ ] 🏆 **High score tracking and leaderboards**
+- [ ] 💾 **Save progress** and resume quizzes
+- [ ] Support for multiple AI providers
+- [ ] 🌐 Web or mobile frontend
+- [ ] 📊 Quiz analytics and performance insights
+
+---
+
+# ⚠️ Disclaimer
+
+Since quizzes are generated by AI models:
+
+- Some questions may occasionally be **incorrect or ambiguous**
+- Output consistency depends on the **LLM being used**
+
+This project focuses on **learning AI integration**, not building a production-grade quiz platform.
+
+---
+
+# 💡 Why This Project Exists
+
+Because the best way to understand AI isn’t just by reading about it —
+
+**it’s by building something with it.**
