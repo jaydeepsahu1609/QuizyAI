@@ -5,11 +5,13 @@
 
 package com.jaydeep.quizyai.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.Objects;
 
 @Data
+@AllArgsConstructor
 public class Option {
 
     private int key;

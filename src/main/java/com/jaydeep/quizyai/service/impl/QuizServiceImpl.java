@@ -57,12 +57,14 @@ public class QuizServiceImpl implements QuizService {
      */
     @Override
     public QuizResponse generateQuiz(String category, String difficulty) {
+        long start = System.currentTimeMillis();
         QuizResponse response = quizClient.prompt()
                 .user(u -> u.text(String.format(Prompts.QUIZ_PROMPT, category, difficulty))
                 )
                 .call()
                 .entity(QuizResponse.class);
 
+        logger.debug("AI Response Time: {}", (System.currentTimeMillis() - start) / 1000 + " seconds");
         assert response != null;
 
         randomizeQuestionsAndAnswers(response);
@@ -78,11 +80,11 @@ public class QuizServiceImpl implements QuizService {
      * @param response the QuizResponse containing questions to be randomized
      */
     private void randomizeQuestionsAndAnswers(QuizResponse response) {
-        logger.debug("Before shuffling: {}", response);
-
         Collections.shuffle(response.getQuestions());
 
+        int id = 1;
         for (Question question : response.getQuestions()) {
+            question.setId(id++);
             Collections.shuffle(question.getOptions());
 
             for (int i = 0; i < question.getOptions().size(); i++) {
@@ -94,8 +96,6 @@ public class QuizServiceImpl implements QuizService {
                 }
             }
         }
-
-        logger.debug("After shuffling: {}", response);
 
     }
 

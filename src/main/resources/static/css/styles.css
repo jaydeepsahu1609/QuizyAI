@@ -215,9 +215,9 @@ body{
 }
 
 .result-btn{
-    background:#6d7a97;
+    background:#48A111;
     color:white;
-    padding: 3vw 10vw;
+    padding: 2vw 8vw;
     font-weight:600;
     border:none;
 }
@@ -229,10 +229,36 @@ body{
 }
 
 .result-btn:hover{
-    background:#5b6885;
+    background:#25671E;
+    color:white;
+
 }
 
 .result-number,
 .result-text{
     border-radius:4px;
+}
+
+/* Loader Styles and typewriter animation */
+#loader {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+    color: #263B6A;
+    letter-spacing: 2px;
+    border-right: 3px solid #263B6A;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 21ch; /* Length of the text */
+    animation: typing 2s steps(21) infinite, blink 0.5s step-end infinite alternate;
+    margin: 20px auto;
+}
+
+@keyframes typing {
+    from { width: 0 }
+    to { width: 21ch }
+}
+
+@keyframes blink {
+    from, to { border-color: transparent }
+    50% { border-color: #263B6A }
 }

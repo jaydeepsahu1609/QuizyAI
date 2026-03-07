@@ -28,6 +28,15 @@
 
 <div class="app-container">
 
+    <div id="error-alert" class="alert alert-danger alert-dismissible fade show" role="alert" style="display: none;">
+        <span id="error-message"></span>
+        <button type="button" class="btn-close" onclick="this.parentElement.style.display='none'"></button>
+    </div>
+
+
+    <!-- Loader -->
+    <div id="loader" style="display: none;">Waiting for AI to respond</div>
+
     <!-- Home Page -->
     <div id="home-page">
 
@@ -42,7 +51,7 @@
             <div class="mb-4 row align-items-center">
                 <label class="col-4 form-label">Category</label>
                 <div class="col-8">
-                    <select class="form-select">
+                    <select class="form-select" id="category">
                         <option selected disabled>SELECT</option>
                         <option>Science</option>
                         <option>History</option>
@@ -57,7 +66,7 @@
             <div class="mb-4 row align-items-center">
                 <label class="col-4 form-label">Difficulty</label>
                 <div class="col-8">
-                    <select class="form-select">
+                    <select class="form-select" id="difficulty">
                         <option selected>EASY</option>
                         <option>MEDIUM</option>
                         <option>HARD</option>
@@ -85,18 +94,18 @@
     <div id="quiz-page" class="mt-4">
 
         <!-- Quiz Title -->
-        <h1 class="title text-center quiz-title mb-4">Quiz #1</h1>
+        <h1 class="title text-center quiz-title mb-4">Quiz #<span id="quiz-no"></span></h1>
 
         <!-- Category + Difficulty -->
         <div class="d-flex justify-content-between quiz-meta px-3">
             <div>
                 <span class="meta-label">Category</span>
-                <span class="meta-value">Cricket</span>
+                <span class="meta-value"></span>
             </div>
 
             <div>
                 <span class="meta-label">Difficulty</span>
-                <span class="meta-value">Easy</span>
+                <span class="meta-value"></span>
             </div>
         </div>
 
@@ -107,7 +116,7 @@
 
             <div class="question-count">
                 <span class="meta-label">Question</span>
-                <span class="meta-value">1 / 5</span>
+                <span class="meta-value"></span>
             </div>
 
             <div class="timer badge bg-danger fs-6">
@@ -121,39 +130,11 @@
 
             <!-- Question -->
             <div class="question-box mb-4">
-                <p class="question-text mb-0">
-                    Which country won the Cricket World Cup in 2011?
-                </p>
+                <p class="question-text mb-0"></p>
             </div>
 
             <!-- Options -->
-            <div class="row g-3">
-
-                <div class="col-md-6">
-                    <button class="btn option-btn w-100">
-                        Australia
-                    </button>
-                </div>
-
-                <div class="col-md-6">
-                    <button class="btn option-btn w-100">
-                        India
-                    </button>
-                </div>
-
-                <div class="col-md-6">
-                    <button class="btn option-btn w-100">
-                        England
-                    </button>
-                </div>
-
-                <div class="col-md-6">
-                    <button class="btn option-btn w-100">
-                        South Africa
-                    </button>
-                </div>
-
-            </div>
+            <div class="row g-3"></div>
 
         </div>
 
@@ -170,12 +151,12 @@
 
             <div>
                 <span class="meta-label">Category</span>
-                <span id="result-category" class="meta-value">Cricket</span>
+                <span id="result-category" class="meta-value"></span>
             </div>
 
             <div>
                 <span class="meta-label">Difficulty</span>
-                <span id="result-difficulty" class="meta-value">Easy</span>
+                <span id="result-difficulty" class="meta-value"></span>
             </div>
 
         </div>
@@ -185,31 +166,6 @@
             <!-- Left: Question Results -->
             <div class="col-md-6">
 
-                <div class="result-item correct">
-                    <span class="result-number">1</span>
-                    <span class="result-text">CORRECT ANSWER</span>
-                </div>
-
-                <div class="result-item correct">
-                    <span class="result-number">2</span>
-                    <span class="result-text">CORRECT ANSWER</span>
-                </div>
-
-                <div class="result-item wrong">
-                    <span class="result-number">3</span>
-                    <span class="result-text">WRONG ANSWER</span>
-                </div>
-
-                <div class="result-item correct">
-                    <span class="result-number">4</span>
-                    <span class="result-text">CORRECT ANSWER</span>
-                </div>
-
-                <div class="result-item correct">
-                    <span class="result-number">5</span>
-                    <span class="result-text">CORRECT ANSWER</span>
-                </div>
-
             </div>
 
             <!-- Right: Score -->
@@ -217,11 +173,11 @@
 
                 <div class="score-display">
 
-                    <span id="score-value">4</span>
+                    <span id="score-value"></span>
 
                     <div class="score-line"></div>
 
-                    <span id="score-total">5</span>
+                    <span id="score-total"></span>
 
                 </div>
 
@@ -232,14 +188,8 @@
         <!-- Buttons -->
         <div class="row mt-5">
 
-            <div class="col-md-6 text-center">
-                <button id="try-again-btn" class="btn result-btn">
-                    TRY AGAIN
-                </button>
-            </div>
-
-            <div class="col-md-6 text-center">
-                <button id="new-quiz-btn" class="btn result-btn">
+            <div class="col-12 text-center">
+                <button id="new-quiz-btn" class="btn result-btn w-75">
                     NEW QUIZ
                 </button>
             </div>
@@ -247,9 +197,6 @@
         </div>
 
     </div>
-
-    <!-- Loader -->
-    <div id="loader" style="display: none;"> </div>
 
     <!-- Main JS -->
     <script src="js/main.js"></script>

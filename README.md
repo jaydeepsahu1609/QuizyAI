@@ -88,14 +88,15 @@ GET http://localhost:8080/quiz?category=Science&difficulty=medium
 
 ### 🛠 Tech Stack
 
-| Technology | Purpose |
-|------------|--------|
-| **Java** | Core backend language |
-| **Spring Boot** | Backend framework |
-| **Spring AI** | LLM integration |
-| **OpenRouter** | Access to free LLM models |
-| **Maven** | Dependency management |
-| **JSON** | Structured AI responses |
+| Technology         | Purpose                   |
+|--------------------|---------------------------|
+| **Java**           | Core backend language     |
+| **Spring Boot**    | Backend framework         |
+| **Spring AI**      | LLM integration           |
+| **OpenRouter**     | Access to free LLM models |
+| **Maven**          | Dependency management     |
+| **JSON**           | Structured AI responses   |
+| **HTML, CSS & JS** | Frontend Stack            |
 
 ---
 

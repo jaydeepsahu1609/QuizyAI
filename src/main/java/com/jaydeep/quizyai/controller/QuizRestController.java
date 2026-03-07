@@ -5,9 +5,7 @@
 
 package com.jaydeep.quizyai.controller;
 
-import com.jaydeep.quizyai.model.ErrorResponse;
-import com.jaydeep.quizyai.model.QuizResponse;
-import com.jaydeep.quizyai.model.Response;
+import com.jaydeep.quizyai.model.*;
 import com.jaydeep.quizyai.service.QuizService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,6 +15,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class QuizRestController {
@@ -58,6 +59,7 @@ public class QuizRestController {
                                                  @RequestParam(value = "difficulty", defaultValue = "easy") String difficulty) {
         try {
             QuizResponse response = quizService.generateQuiz(category, difficulty);
+//            QuizResponse response = getDummyQuizResponse();
             return ResponseEntity.ok(response);
         } catch (NonTransientAiException e) {
             logger.error("Failed to generate quiz questions due to rate limiting.");
@@ -66,6 +68,46 @@ public class QuizRestController {
             logger.error("Some error occurred while generating quiz questions. {}", e.getMessage());
             return ResponseEntity.internalServerError().body(new ErrorResponse("Failed to generate quiz questions. Please try again later."));
         }
+    }
+
+    /**
+     * For Testing Purpose
+     *
+     */
+    private QuizResponse getDummyQuizResponse() {
+        QuizResponse quizResponse = new QuizResponse();
+
+        List<Question> questionList = new ArrayList<>();
+
+        Question question = new Question();
+        question.setQuestion("Who played the role of DC superhero 'The Flash' in CW TV Series?");
+        question.setOptions(
+                List.of(new Option(1, "Robert Downey Jr."),
+                        new Option(2, "Ezra Miller"),
+                        new Option(3, "John Crasinskey"),
+                        new Option(4, "Grant Gustin")
+                )
+        );
+        question.setAnswer("4");
+
+        question.setId(1);
+        questionList.add(question);
+
+        question.setId(2);
+        questionList.add(question);
+
+        question.setId(3);
+        questionList.add(question);
+
+        question.setId(4);
+        questionList.add(question);
+
+        question.setId(5);
+        questionList.add(question);
+
+        quizResponse.setQuestions(questionList);
+
+        return quizResponse;
     }
 
 
