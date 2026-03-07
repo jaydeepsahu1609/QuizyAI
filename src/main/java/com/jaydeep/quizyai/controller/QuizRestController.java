@@ -6,7 +6,12 @@
 package com.jaydeep.quizyai.controller;
 
 import com.jaydeep.quizyai.constants.Prompts;
+import com.jaydeep.quizyai.model.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.retry.NonTransientAiException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,9 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.util.Collections;
 
 @RestController
 public class QuizRestController {
+    private final static Logger logger = LogManager.getLogger(QuizRestController.class);
 
     private final ChatClient quizClient;
 
@@ -35,7 +42,6 @@ public class QuizRestController {
 
         try {
             String response = quizClient.prompt()
-//                    .system(Instructions.WELCOME_BOT_BEHAVIOUR)
                     .user(u -> u.text(Prompts.WELCOME_PROMPT)
                             .param("name", name)
                             .param("time", LocalTime.now(ZoneId.of("Asia/Kolkata")).toString())
@@ -47,5 +53,59 @@ public class QuizRestController {
             return ResponseEntity.internalServerError().body("Something went wrong");
         }
     }
+
+    /**
+     * Generates quiz questions based on the specified category and difficulty level.
+     *
+     * @param category   the topic of the quiz questions
+     * @param difficulty the difficulty level (e.g., easy, medium, hard)
+     * @return a ResponseEntity containing the AI-generated quiz questions in JSON format
+     */
+    @GetMapping("/quiz")
+    public ResponseEntity<Response> generateQuiz(@RequestParam(value = "category") String category,
+                                                 @RequestParam(value = "difficulty", defaultValue = "easy") String difficulty) {
+        try {
+            QuizResponse response = quizClient.prompt()
+                    .user(u -> u.text(String.format(Prompts.QUIZ_PROMPT, category, difficulty))
+                    )
+                    .call()
+                    .entity(QuizResponse.class);
+
+            assert response != null;
+
+            randomizeQuestionsAndAnswers(response);
+            return ResponseEntity.ok(response);
+        } catch (NonTransientAiException e) {
+            logger.error("Failed to generate quiz questions due to rate limiting.");
+            return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).body(new ErrorResponse("Failed to generate quiz questions due to rate limiting. Please try again later."));
+        } catch (Exception e) {
+            logger.error("Some error occurred while generating quiz questions. {}", e.getMessage());
+            return ResponseEntity.internalServerError().body(new ErrorResponse("Failed to generate quiz questions. Please try again later."));
+        }
+    }
+
+    private void randomizeQuestionsAndAnswers(QuizResponse response) {
+        logger.debug("Before shuffling: {}", response);
+
+        Collections.shuffle(response.getQuestions());
+
+        for (Question question : response.getQuestions()) {
+            Option correctOption = question.getOptions().get(question.getAnswer());
+            Collections.shuffle(question.getOptions());
+
+
+            for (int i = 0; i < question.getOptions().size(); i++) {
+                Option option = question.getOptions().get(i);
+                if (option.equals(correctOption)) {
+                    question.setAnswer(i);
+                }
+                option.setKey(i + 1);
+            }
+        }
+
+        logger.debug("After shuffling: {}", response);
+
+    }
+
 
 }
