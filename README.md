@@ -165,6 +165,11 @@ Make sure your run configuration loads environment variables from the `.env` fil
 
 ---
 
+### Architecture Diagram
+
+<img src="docs/quizyai-architecture.png" width="600" alt="Architecture Diagram">
+
+---
 ### 🎨 UI & Design
 
 To visualize how the AI-powered quiz would look for end users, I have designed a basic UI wireframe. You can find the high-resolution screenshots and design assets in the `docs/` folder.
