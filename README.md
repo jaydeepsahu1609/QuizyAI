@@ -161,7 +161,11 @@ Make sure your run configuration loads environment variables from the `.env` fil
 - 💾 **Save progress** and resume quizzes
 - **Timer** for the quiz
 - Support for multiple AI providers
-- 📊 Quiz analytics and performance insights
+- 📊 Quiz analytics, performance insights and AI insights (number of tokens per day per model)
+- **Custom Topic** for quizes
+- **Play More** extra unique 5 questions with increased difficulty when user passes a quiz with 4/5
+- **Challenge AI** Challenge the AI when you feel your answer was correct but it was marked as incorrect
+- **Cache-Aside** pattern to reduce AI calls by leveraging VectorStore
 
 ---
 
